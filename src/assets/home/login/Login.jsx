@@ -1,9 +1,12 @@
 //import react
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 //import material
 import { Grid, Switch } from "@material-ui/core";
 import TextField from '@material-ui/core/TextField';
 import { Button } from '@mui/material';
+
+import myApp from '../../core/firebaseConfig';
+import 'firebase/compat/firestore';
 
 //Import css
 import "../login/login.css";
@@ -20,6 +23,15 @@ const Login = () => {
       ...userCredentials, [data]:evento.target.value 
     });
   }  
+
+  useEffect(()=>{
+    teste();
+  }, [])
+
+  const teste = async ()=>{
+    let get = await myApp.firestore().collection("teste").get()
+    console.log(get.docs[0].data())
+  }
 
   const handleLogin = () => {
     console.log(userCredentials);
